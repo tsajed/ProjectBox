@@ -4,10 +4,15 @@
 	"description"  : "Host projects and get feedback and ranking",
 	"main"         : "server.js",
 	"author"       : "Karl, Ivan, Tanvir",
+	"repository"   : {
+		"type"     : "git",
+		"url"      : "http://github.com/KarlParkinson/ProjectBox.git"
+	},
 	"engines"      : {
 		"node"     : "0.10.25"
 	},
 	"dependencies" : {
-		"express"  : "~3.4.8"
+		"express"  : "~3.4.8",
+		"mongoose" : "~3.8.6"
 		}
 }
