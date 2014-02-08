@@ -25,14 +25,16 @@ module.exports = function(app) {
 			text   : req.body.text,
 			author : false,
 		}, function(err, todo) {
-			if (err)
+			if (err) {
 				res.send(err);
+			}
 
 			// get and return all the projects after you create another
 			Project.find(function(err, project) {
-				if (err)
+				if (err) {
 					res.send(err)
-				res.json(projects);
+				}
+				res.json(project);
 			});
 		});
 
@@ -43,8 +45,9 @@ module.exports = function(app) {
 		Project.remove({
 			_id : req.params.project_id
 		}, function(err, project) {
-			if (err)
+			if (err) {
 				res.send(err);
+			}
 
 			// get and return all the projects after you create another
 			Project.find(function(err, projects) {
