@@ -1,12 +1,17 @@
 
 var mongoose = require('mongoose');
 
-var uri = "mongodb://projectbox:projectbox1@ds027789.mongolab.com:27789/projectbox";
+var Schema = mongoose.Schema;
 
-mongoose.connect(uri);
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback () {
-  console.log("connected");
+var blogSchema = new Schema({
+  title:  String,
+  author: String,
+  body:   String,
+  comments: [{ body: String, date: Date }],
+  date: { type: Date, default: Date.now },
+  hidden: Boolean,
+  meta: {
+    votes: Number,
+    favs:  Number
+  }
 });

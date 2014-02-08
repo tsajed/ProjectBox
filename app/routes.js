@@ -1,4 +1,5 @@
 var Project = require('./models/projects');
+var User = require('./models/users');
 
 module.exports = function(app) {
 
@@ -22,8 +23,12 @@ module.exports = function(app) {
 
 		// create a todo, information comes from AJAX request from Angular
 		Project.create({
-			text   : req.body.text,
-			author : false,
+			title   : req.body.text,
+			author : "Jason gillespie",
+			body : "this is a new project",
+			comments : [],
+			hidden : false,
+			meta : { votes : 0, favs : 0}
 		}, function(err, todo) {
 			if (err) {
 				res.send(err);
@@ -39,8 +44,35 @@ module.exports = function(app) {
 		});
 
 	});
+	
+	// create user and send back all users after creation
+	app.post('/api/users', function(req, res) {
 
-	// delete a todo
+		// create a todo, information comes from AJAX request from Angular
+		User.create({
+			title   : req.body.text,
+			firstname : "Jason",
+			lastname : "Gillespie",
+			projects : [],
+			hidden : false,
+			meta : { avvotes : 0, favs : 0}
+		}, function(err, todo) {
+			if (err) {
+				res.send(err);
+			}
+
+			// get and return all the projects after you create another
+			Project.find(function(err, users) {
+				if (err) {
+					res.send(err)
+				}
+				res.json(users);
+			});
+		});
+
+	});
+
+	// delete a project
 	app.delete('/api/projects/:project_id', function(req, res) {
 		Project.remove({
 			_id : req.params.project_id
@@ -54,6 +86,24 @@ module.exports = function(app) {
 				if (err)
 					res.send(err)
 				res.json(projects);
+			});
+		});
+	});
+	
+	// delete a user
+	app.delete('/api/users/:user_id', function(req, res) {
+		User.remove({
+			_id : req.params.user_id
+		}, function(err, user) {
+			if (err) {
+				res.send(err);
+			}
+
+			// get and return all the projects after you create another
+			User.find(function(err, users) {
+				if (err)
+					res.send(err)
+				res.json(users);
 			});
 		});
 	});
