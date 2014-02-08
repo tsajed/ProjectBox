@@ -1,7 +1,18 @@
 var mongoose = require('mongoose');
 
-module.exports = mongoose.model('Project', {
-	title  : String,
-	author : String,
-	rank   : Number
-})
+var Schema = mongoose.Schema;
+
+var projectSchema = new Schema({
+  title:  String,
+  author: String,
+  body:   String,
+  comments: [{ body: String, date: Date }],
+  date: { type: Date, default: Date.now },
+  hidden: Boolean,
+  meta: {
+    votes: Number,
+    favs:  Number
+  }
+});
+
+module.exports = mongoose.model('Project', projectSchema);
