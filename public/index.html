@@ -18,9 +18,10 @@
 		#project-list 	{ margin-bottom:30px; margin-left: auto; margin-right: auto; }
 		#project-form 	{ margin-bottom:50px; }
 		#projectThumb 	{ height: 200px; width: 200px; }
-		#logo			{ text-decoration: none; color: #333333; }
+		#logo			{ text-decoration: none; color: #FFFFFF; }
 		#del 			{ color: #bf0000; }
-		.jumbotron	 	{ background-color: #81e3fb; }
+		#log 			{ color: #FFFFFF; }
+		.jumbotron	 	{ background-color: #428bca; }
 		.label 			{ background-color: #FFFFFF; color: #000000; }
 	</style>
 
@@ -39,7 +40,7 @@
 			<h1><a id="logo" href="/">ProjectBox</a></h1>
 			<p>by TeamName</p>
 			<div class="text-center text-muted">
-				<a href="login.html">Login</a>
+				<a id="log" href="login.html">Login</a>
 			</div>
 		</div>
 
@@ -76,10 +77,6 @@
 						<br>
 						<button type="button" class="btn btn-primary btn-sm" ng-click="project.up = project.up + 1">Up: {{ project.up }}</button>
 						<button type="button" class="btn btn-primary btn-sm" ng-click="project.down = project.down + 1">Down: {{ project.down }}</button>
-
-
-
-
 						<p ng-click="deleteProject(project._id)" id="del">delete</p>
 					</div>
 				</li>
