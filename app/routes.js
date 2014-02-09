@@ -48,29 +48,38 @@ module.exports = function(app) {
 	// create user and send back all users after creation
 	app.post('/api/users', function(req, res) {
 
+		// Find if username already exists
 		User.findOne({ 'username' : req.body.text }, function (err, user) {
 			if (err) return handleError(err);
-			if (user != null) return 0;
-		});
-		// create a todo, information comes from AJAX request from Angular
-		User.create({
-			title   : "student2343",
-			username : req.body.text,
-			password : req.body.descr,
-			firstname : "Jason",
-			lastname : "Gillespie",
-			projects : [],
-			hidden : false,
-			meta : { avvotes : 0, favs : 0}
-		}, function(err, todo) {
-			if (err) {
-				res.send(err);
-			}
-
-			// get and return all the projects after you create another
-			User.findOne({ 'title' : 'student2343' }, function (err, user) {
-				if (err) return handleError(err);
+			if (user != null) {
+				user = {invalid : 0};
 				res.json(user);
+				return 0;
+			}
+			
+		
+		// create a todo, information comes from AJAX request from Angular
+			User.create({
+				title   : "student2343",
+				username : req.body.text,
+				password : req.body.descr,
+				firstname : "Jason",
+				lastname : "Gillespie",
+				projects : [],
+				hidden : false,
+				meta : { avvotes : 0, favs : 0}
+			}, function(err, todo) {
+				if (err) {
+					res.send(err);
+				}
+
+				// get and return user object 
+				User.findOne({ 'username' : req.body.text }, function (err, user) {
+					if (err) return handleError(err);
+					console.log(user.title);
+					console.log(req.body.descr);
+					res.json(user);
+				});
 			});
 		});
 

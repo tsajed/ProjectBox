@@ -2,6 +2,7 @@ var projectBox = angular.module('projectBox', []);
 
 function mainController($scope, $http) {
 	$scope.formData = {};
+	$scope.userData = {};
 
 
 	// when landing on the page, get all projects and show them
@@ -28,21 +29,26 @@ function mainController($scope, $http) {
 	// create a user
 	
 	$scope.createUser = function() {
-		$http.post('/api/users', $scope.formData)
+		$http.post('/api/users', $scope.userData)
 			.success(function(data) {
 				$('input').val('');
-				$scope.projects = data;
+				$scope.user = data;
+				
 			})
 			.error(function(data) {
 				console.log('Error: ' + data);
 			});
+			
+			if($scope.user.invalid == 0) { 
+				$scope.user.username = "already exists";
+			}
 	};
 
 	// delete a todo after checking it
 	$scope.deleteProject = function(id) {
 		$http.delete('/api/projects/' + id)
 			.success(function(data) {
-				$scope.users = data;
+				$scope.projects = data;
 			})
 			.error(function(data) {
 				console.log('Error: ' + data);
