@@ -74,11 +74,11 @@ module.exports = function(app) {
 			}
 
 			// get and return all the projects after you create another
-			Project.findOne({ _id : project._id}, function(err, project) {
+			Project.find( function(err, projects) {
 				if (err) {
 					res.send(err)
 				}
-				res.json(project);
+				res.json(projects);
 			});
 		});
 
@@ -116,8 +116,6 @@ module.exports = function(app) {
 					res.send(err);
 				} 
 				
-				res.json(user);
-				console.log(user.username);
 			});
 						
 		});

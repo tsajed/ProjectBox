@@ -29,28 +29,8 @@ function mainController($scope, $http, $window, $document) {
 		$http.post('/api/projects', $scope.formData)
 			.success(function(data) {
 				$('input').val('');
-				$scope.proj = data;
-				
-				$http.post('/api/users/project/' + $scope.proj._id, $scope.user)
-			.success(function(data) {
-				$('input').val('');
-				$scope.user = data;
-				
-				$http.post('/api/projects/user/' + $scope.user.username, $scope.formData)
-			.success(function(data) {
-				$('input').val('');
 				$scope.projects = data;
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-			
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-			
-			
+						
 			})
 			.error(function(data) {
 				console.log('Error: ' + data);
