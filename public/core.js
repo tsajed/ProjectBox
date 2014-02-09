@@ -44,13 +44,13 @@ function mainController($scope, $http, $window) {
 		//$window.alert("sfsd");
 		//$window.location.href = "index.html";
 		//console.log("dfs");
-		if(typeof $scope.user === 'undefined') {
+		//if(typeof $scope.user === 'undefined') {
 			//$window.location.href = "index.html";
-			$window.alert("Username already taken");
-		}
-		else {
-			$window.location.href = "index.html";
-		}
+		//	$window.alert("Username already taken");
+		//}
+		//else {
+			$window.location.href = "login.html";
+		//}
 	};
 
 	// delete a project after clicking delete

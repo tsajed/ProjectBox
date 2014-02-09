@@ -50,15 +50,37 @@
 			<div class="col-sm-8 col-sm-offset-2 text-center">
 				<form>
 					<div class="form-group">
-
-						<input type="text" class="form-control input-lg text-center" placeholder="Enter your username" ng-model="userData.text">
+						<input type="text" class="form-control input-lg text-left" placeholder="Project Title" ng-model="formData.text">
 						<br>
-						<input type="password" class="form-control input-lg text-center" placeholder="Enter your password" ng-model="userData.descr">
+						<input type="text" class="form-control input-lg text-left" placeholder="Description" ng-model="formData.descr">
+						<br>
+						<input type="text" class="form-control input-lg text-left" placeholder="URL" ng-model="formData.url">
+						<br>
+						<input type="text" class="form-control input-lg text-left" placeholder="Category (code, image, video)" ng-model="formData.category">
 					</div>
 
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="createUser()">Login</button>
+
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createProject()">Add Project</button>
 				</form>
 			</div>
+		</div>
+
+		<div id="project-list">
+			<h2 class="text-center">Projects</h2>
+
+			<ul>
+				<li ng-repeat="project in projects">
+					<div id="projectThumb">
+						<p><a href='{{ project.url }}' target="_blank">{{ project.title }}</a></p> 
+						<p>{{ project.body }}</p>
+						<p>{{ project.category }}</p>
+						<br>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="project.up = project.up + 1">Up: {{ project.up }}</button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="project.down = project.down + 1">Down: {{ project.down }}</button>
+						<p ng-click="deleteProject(project._id)" id="del">delete</p>
+					</div>
+				</li>
+			</ul>
 		</div>
 
 	</div>
