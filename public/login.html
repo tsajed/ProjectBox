@@ -26,7 +26,7 @@
 	<div class="container">
 
 		<div class="jumbotron text-center">
-			<h1>ProjectBox <span class="label label-info">{{ user.title }}</span></h1>
+			<h1>ProjectBox <span class="label label-info">{{ user.username }}</span></h1>
 		</div>
 
 		<!--div id="todo-list" class="row">
@@ -41,18 +41,18 @@
 			</div>
 		</div-->
 
-		<div id="todo-form" class="row">
+		<div id="project-form" class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
 				<form>
 					<div class="form-group">
 
 						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
 
-						<input type="text" class="form-control input-lg text-center" placeholder="Enter your username" ng-model="formData.text">
-						<input type="text" class="form-control input-lg text-center" placeholder="Enter your password" ng-model="formData.descr">
+						<input type="text" class="form-control input-lg text-center" placeholder="Enter your username" ng-model="userData.text">
+						<input type="text" class="form-control input-lg text-center" placeholder="Enter your password" ng-model="userData.descr">
 					</div>
 
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="createUser()">Create</button>
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createUser()">Sign Up</button>
 				</form>
 			</div>
 		</div>

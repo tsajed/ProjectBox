@@ -30,9 +30,15 @@
 <body ng-controller="mainController">
 	<div class="container">
 
+
+
 		<div class="jumbotron text-center">
 			<h1>ProjectBox</h1>
 			<p>by TeamName</p>
+			<div class="text-center text-muted">
+				<a href="login.html">Login  </a>
+				<a href="signup.html">  Sign Up</a>
+			</div>
 		</div>
 
 
@@ -56,9 +62,6 @@
 			</div>
 		</div>
 
-		<div class="text-center text-muted">
-			<p>Prototype by TeamName</a>.</p>
-
 		<!--<div id="project-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 
@@ -80,16 +83,14 @@
 						<p>{{ project.body }}</p>
 						<p>{{ project.category }}</p>
 						<br>
-						<button type="button" ng-model="upvotes" ng-click="increase(project._id)">Up: {{ project.up }}</button>
+						<button type="button" ng-click="project.up = project.up + 1">Up: {{ project.up }}</button>
 						<button type="button" ng-click="project.down = project.down + 1">Down: {{ project.down }}</button>
 					</div>
 				</li>
 			</ul>
 		</div>
 		
-		<div class="text-center text-muted">
-			<a href="login.html">Login</a>
-		</div>
+		
 
 	</div>
 
