@@ -57,9 +57,6 @@
 		</div>
 
 		<div class="text-center text-muted">
-			<a href="login.html">Login</a>
-		</div>
-		<div class="text-center text-muted">
 			<p>Prototype by TeamName</a>.</p>
 		</div>
 

@@ -29,7 +29,7 @@
 			<h1>ProjectBox <span class="label label-info">{{ projects.length }}</span></h1>
 		</div>
 
-		<div id="todo-list" class="row">
+		<!--div id="todo-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 
 				<div class="checkbox" ng-repeat="project in projects">
@@ -39,7 +39,7 @@
 				</div>
 
 			</div>
-		</div>
+		</div-->
 
 		<div id="todo-form" class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
@@ -48,17 +48,15 @@
 
 						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
 
-						<input type="text" class="form-control input-lg text-center" placeholder="Add new project" ng-model="formData.text">
+						<input type="text" class="form-control input-lg text-center" placeholder="Enter your username" ng-model="formData.text">
+						<input type="text" class="form-control input-lg text-center" placeholder="Enter your password" ng-model="formData.descr">
 					</div>
 
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="createProject()">Add</button>
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createUser()">Add</button>
 				</form>
 			</div>
 		</div>
-
-		<div class="text-center text-muted">
-			<a href="login.html">Login</a>
-		</div>
+		
 		<div class="text-center text-muted">
 			<p>Prototype by TeamName</a>.</p>
 		</div>

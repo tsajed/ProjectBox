@@ -50,7 +50,9 @@ module.exports = function(app) {
 
 		// create a todo, information comes from AJAX request from Angular
 		User.create({
-			title   : req.body.text,
+			title   : "student",
+			username : req.body.text,
+			password : req.body.descr,
 			firstname : "Jason",
 			lastname : "Gillespie",
 			projects : [],
