@@ -18,10 +18,10 @@ module.exports = function(app) {
 		});
 	});
 
-	// create todo and send back all projects after creation
+	// create project and send back all projects after creation
 	app.post('/api/projects', function(req, res) {
 
-		// create a todo, information comes from AJAX request from Angular
+		// create a project, information comes from AJAX request from Angular
 		Project.create({
 			title   : req.body.text,
 			author : "Jason gillespie",
@@ -62,7 +62,7 @@ module.exports = function(app) {
 			}
 			
 		
-		// create a todo, information comes from AJAX request from Angular
+		// create a project, information comes from AJAX request from Angular
 			User.create({
 				title   : "student2343",
 				username : req.body.text,
@@ -72,7 +72,7 @@ module.exports = function(app) {
 				projects : [],
 				hidden : false,
 				meta : { avvotes : 0, favs : 0}
-			}, function(err, todo) {
+			}, function(err, project) {
 				if (err) {
 					res.send(err);
 				}
@@ -106,7 +106,7 @@ module.exports = function(app) {
 				res.send(err);
 			}
 
-			// get and return all the projects after you create another
+			// get and return all the projects after you delete another
 			Project.find(function(err, projects) {
 				if (err)
 					res.send(err)
@@ -124,7 +124,6 @@ module.exports = function(app) {
 				res.send(err);
 			}
 
-			// get and return all the projects after you create another
 			User.find(function(err, user) {
 				if (err)
 					res.send(err)
@@ -135,6 +134,6 @@ module.exports = function(app) {
 
 	// application -------------------------------------------------------------
 	app.get('*', function(req, res) {
-		res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+		res.sendfile('./public/index.html'); // load the single view file
 	});
 };

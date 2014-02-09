@@ -45,7 +45,7 @@ function mainController($scope, $http) {
 			}
 	};
 
-	// delete a todo after checking it
+	// delete a project after clicking delete
 	$scope.deleteProject = function(id) {
 		$http.delete('/api/projects/' + id)
 			.success(function(data) {
