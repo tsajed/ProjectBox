@@ -29,7 +29,7 @@ module.exports = function(app) {
 			comments : [],
 			hidden : false,
 			meta : { votes : 0, favs : 0}
-		}, function(err, todo) {
+		}, function(err, project) {
 			if (err) {
 				res.send(err);
 			}
