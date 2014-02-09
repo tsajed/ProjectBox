@@ -1,6 +1,6 @@
 {
 	"name"         : "ProjectBox",
-	"version"      : "0.0.0",
+	"version"      : "0.1.0",
 	"description"  : "Host projects and get feedback and ranking",
 	"main"         : "server.js",
 	"author"       : "Karl, Ivan, Tanvir",
