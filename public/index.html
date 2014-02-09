@@ -17,6 +17,8 @@
 		#project-list 	{ margin-bottom:30px; margin-left: auto; margin-right: auto; }
 		#project-form 	{ margin-bottom:50px; }
 		#projectThumb 	{ height: 200px; width: 200px; }
+		#logo			{ text-decoration: none; color: #333333; }
+		#del 			{ color: #bf0000; }
 		.jumbotron	 	{ background-color: #81e3fb; }
 		.label 			{ background-color: #FFFFFF; color: #000000; }
 	</style>
@@ -30,9 +32,15 @@
 <body ng-controller="mainController">
 	<div class="container">
 
+
+
 		<div class="jumbotron text-center">
-			<h1>ProjectBox</h1>
+			<h1><a id="logo" href="/">ProjectBox</a></h1>
 			<p>by TeamName</p>
+			<div class="text-center text-muted">
+				<a href="login.html">Login</a>
+				<a href="signup.html">Sign Up</a>
+			</div>
 		</div>
 
 
@@ -42,7 +50,12 @@
 				<form>
 					<div class="form-group">
 						<input type="text" class="form-control input-lg text-left" placeholder="Project Title" ng-model="formData.text">
+						<br>
 						<input type="text" class="form-control input-lg text-left" placeholder="Description" ng-model="formData.descr">
+						<br>
+						<input type="text" class="form-control input-lg text-left" placeholder="URL" ng-model="formData.url">
+						<br>
+						<input type="text" class="form-control input-lg text-left" placeholder="Category (code, image, video)" ng-model="formData.category">
 					</div>
 
 
@@ -51,39 +64,24 @@
 			</div>
 		</div>
 
-		<div class="text-center text-muted">
-			<p>Prototype by TeamName</a>.</p>
-
-		<!--<div id="project-list" class="row">
-			<div class="col-sm-4 col-sm-offset-4">
-
-				<div class="checkbox" ng-repeat="project in projects">
-					<label>
-						<input type="checkbox" ng-click="deleteProject(project._id)"> {{ project.title }}
-					</label>
-				</div>
-
-			</div>
-		</div>-->
-
 		<div id="project-list">
 
 			<ul>
 				<li ng-repeat="project in projects">
 					<div id="projectThumb">
-						<p ng-click="deleteProject(project._id)">{{ project.title }}</p> 
-						<p>{{ project.body }}
+						<p><a href='{{ project.url }}' target="_blank">{{ project.title }}</a></p> 
+						<p>{{ project.body }}</p>
+						<p>{{ project.category }}</p>
 						<br>
-						<button type="button" ng-click="up = up + 1" ng-init="up=0">Up: {{ up }}</button>
-						<button type="button" ng-click="down = down + 1" ng-init="down=0">Down: {{ down }}</button>
+						<button type="button" ng-click="project.up = project.up + 1">Up: {{ project.up }}</button>
+						<button type="button" ng-click="project.down = project.down + 1">Down: {{ project.down }}</button>
+						<p ng-click="deleteProject(project._id)" id="del">delete</p>
 					</div>
 				</li>
 			</ul>
 		</div>
 		
-		<div class="text-center text-muted">
-			<a href="login.html">Login</a>
-		</div>
+		
 
 	</div>
 

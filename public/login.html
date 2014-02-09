@@ -14,6 +14,9 @@
 		body 					{ padding-top:50px; }
 		#todo-list 				{ margin-bottom:30px; }
 		#todo-form 	 			{ margin-bottom:50px; }
+		#logo			{ text-decoration: none; color: #333333; }
+		.jumbotron	 	{ background-color: #81e3fb; }
+		.label 			{ background-color: #FFFFFF; color: #000000; }
 	</style>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -34,7 +37,8 @@
 	<div class="container">
 
 		<div class="jumbotron text-center">
-			<h1>ProjectBox <span class="label label-info">{{ user.username }}</span></h1>
+			<h1><a id="logo" href="/">ProjectBox</a> <span class="label label-info">{{ user.username }}</span></h1>
+			<p>by TeamName</p>
 		</div>
 
 		<!--div id="todo-list" class="row">
@@ -57,16 +61,13 @@
 						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
 
 						<input type="text" class="form-control input-lg text-center" placeholder="Enter your username" ng-model="userData.text">
-						<input type="text" class="form-control input-lg text-center" placeholder="Enter your password" ng-model="userData.descr">
+						<br>
+						<input type="password" class="form-control input-lg text-center" placeholder="Enter your password" ng-model="userData.descr">
 					</div>
 
 					<button type="submit" class="btn btn-primary btn-lg" ng-click="createUser()">Sign Up</button>
 				</form>
 			</div>
-		</div>
-		
-		<div class="text-center text-muted">
-			<p>Prototype by TeamName</a>.</p>
 		</div>
 
 	</div>

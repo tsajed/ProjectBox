@@ -26,8 +26,12 @@ module.exports = function(app) {
 			title   : req.body.text,
 			author : "Jason gillespie",
 			body : req.body.descr,
+			url : req.body.url,
+			category : req.body.category,
 			comments : [],
 			hidden : false,
+			up : 0,
+			down: 0,
 			meta : { votes : 0, favs : 0}
 		}, function(err, project) {
 			if (err) {
@@ -73,15 +77,23 @@ module.exports = function(app) {
 					res.send(err);
 				}
 
+
+
 				// get and return user object 
 				User.findOne({ 'username' : req.body.text }, function (err, user) {
 					if (err) return handleError(err);
 					console.log(user.title);
 					console.log(req.body.descr);
 					res.json(user);
+
 				});
+
+
 			});
+
 		});
+
+		//res.redirect('http://localhost:8080');
 
 	});
 

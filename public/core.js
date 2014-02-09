@@ -5,6 +5,7 @@ function mainController($scope, $http, $window) {
 	$scope.userData = {};
 
 
+
 	// when landing on the page, get all projects and show them
 	$http.get('/api/projects')
 		.success(function(data) {
