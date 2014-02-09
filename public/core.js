@@ -29,19 +29,6 @@ function mainController($scope, $http, $window, $document) {
 		$http.post('/api/projects', $scope.formData)
 			.success(function(data) {
 				$('input').val('');
-/*<<<<<<< HEAD
-				$scope.projects = data;
-				
-				$http.post('/api/users/project/' + $scope.proj._id, $scope.user)
-			success(function(data) {
-				$('input').val('');
-				$scope.user = data;
-				
-				$http.post('/api/projects/user/' + $scope.user.username, $scope.formData)
-			.success(function(data) {
-				$('input').val('');
-=======
->>>>>>> 92421068e342a547c5b9ee69b14474792c455099*/
 				$scope.projects = data;
 						
 			})
@@ -126,5 +113,9 @@ function mainController($scope, $http, $window, $document) {
 				console.log('Error: ' + data);
 			});
 	};
+
+	$scope.sortFunc = function(up) {
+		return project.up
+	}
 	
 }
