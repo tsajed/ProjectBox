@@ -76,7 +76,6 @@
 
 		<div id="project-list">
 			<h2 class="text-center">Projects</h2>
-
 			<ul>
 				<li ng-repeat="project in projects">
 					<div id="projectThumb">
@@ -87,16 +86,17 @@
 						<button type="button" class="btn btn-primary btn-sm" ng-click="addVote(project._id, 'up')">Up: {{ project.up }}</button>
 						<button type="button" class="btn btn-primary btn-sm" ng-click="addVote(project._id, 'down')">Down: {{ project.down }}</button>
 						<br>
-						<input type="text" class="form-control input-lg text-left" placeholder="Create Comment" ng-model="formData.text">
+						<input type="text" class="form-control input-lg text-left" placeholder="Create Comment" ng-model="formData.comment">
 						<br>
-						<button type="submit" class="btn btn-primary btn-sm" ng-click="addComment()">Submit</button>
+						<button type="button" class="btn btn-primary btn-lg" ng-click="addComment(project._id)">Submit</button>
+						<br>
+
 						<br>
 						<p ng-click="deleteProject(project._id)" id="del">delete</p>
 					</div>
 				</li>
 			</ul>
 		</div>
-		
 		
 
 	</div>
