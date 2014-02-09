@@ -42,7 +42,7 @@ function mainController($scope, $http, $window, $document) {
 		$http.post('/api/comment/' + id, $scope.formData)
 			.success(function(data) {
 				$('input').val('');
-				$scope.project = data;
+				$scope.projects = data;
 				
 			})
 			.error(function(data) {
@@ -58,7 +58,7 @@ function mainController($scope, $http, $window, $document) {
 		$http.post('/api/projects/vote/' + id, $scope.formData)
 			.success(function(data) {
 				//$('input').val('');
-				$scope.project = data;
+				$scope.projects = data;
 				
 			})
 			.error(function(data) {
