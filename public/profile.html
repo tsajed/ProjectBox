@@ -90,7 +90,13 @@
 						<br>
 						<button type="button" class="btn btn-primary btn-sm" ng-click="addComment(project._id)">Submit</button>
 						<br>
-
+						<ul>
+							<li ng-repeat="comment in project.comments">
+								<div id="projectThumb">
+									<div>{{ comment }}</div>
+								</div>
+							</li>
+						</ul>
 						<br>
 						<p ng-click="deleteProject(project._id)" id="del">delete</p>
 					</div>
