@@ -48,9 +48,13 @@ module.exports = function(app) {
 	// create user and send back all users after creation
 	app.post('/api/users', function(req, res) {
 
+		User.findOne({ 'username' : req.body.text }, function (err, user) {
+			if (err) return handleError(err);
+			if (user != null) return 0;
+		});
 		// create a todo, information comes from AJAX request from Angular
 		User.create({
-			title   : "student",
+			title   : "student2343",
 			username : req.body.text,
 			password : req.body.descr,
 			firstname : "Jason",
@@ -64,11 +68,9 @@ module.exports = function(app) {
 			}
 
 			// get and return all the projects after you create another
-			Project.find(function(err, users) {
-				if (err) {
-					res.send(err)
-				}
-				res.json(users);
+			User.findOne({ 'title' : 'student2343' }, function (err, user) {
+				if (err) return handleError(err);
+				res.json(user);
 			});
 		});
 
@@ -102,10 +104,10 @@ module.exports = function(app) {
 			}
 
 			// get and return all the projects after you create another
-			User.find(function(err, users) {
+			User.find(function(err, user) {
 				if (err)
 					res.send(err)
-				res.json(users);
+				res.json(user);
 			});
 		});
 	});
