@@ -166,7 +166,14 @@ module.exports = function(app) {
 						console.log('The number of updated documents was %d', numberAffected);
 						console.log('The raw response from Mongo was ', raw);
 						
-						res.json(project);
+						// get and return all the projects after you create another
+						Project.find( function(err, projects) {
+						if (err) {
+							res.send(err)
+						}
+						res.json(projects);
+					});
+						
 				});
 			}
 			else {
@@ -179,7 +186,13 @@ module.exports = function(app) {
 						console.log('The number of updated documents was %d', numberAffected);
 						console.log('The raw response from Mongo was ', raw);
 						
-						res.json(project);
+						// get and return all the projects after you create another
+						Project.find( function(err, projects) {
+						if (err) {
+							res.send(err)
+						}
+						res.json(projects);
+					});
 				});
 			}
 		});
@@ -205,7 +218,14 @@ module.exports = function(app) {
 					console.log('The number of updated documents was %d', numberAffected);
 					console.log('The raw response from Mongo was ', raw);
 					console.log(project.comments[0]);
-					res.json(project);
+					
+					// get and return all the projects after you create another
+					Project.find( function(err, projects) {
+						if (err) {
+							res.send(err)
+						}
+						res.json(projects);
+					});
 			});
 		});
 	});

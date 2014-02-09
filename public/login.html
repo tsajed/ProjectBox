@@ -27,14 +27,6 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
 	<script src="core.js"></script>
-	<script>
-		/*if({ user.invalid }== 0) {
-			document.location.href = "index.html";
-			document.write(user.invalid);
-		}*/
-		var x = document.getElementById("project-form");
-		document.write({user.username});
-	</script>
 
 </head>
 
@@ -75,9 +67,9 @@
 						<p>{{ project.body }}</p>
 						<p>{{ project.category }}</p>
 						<br>
-						<button type="button" class="btn btn-primary btn-sm" ng-click="project.up = project.up + 1">Up: {{ project.up }}</button>
-						<button type="button" class="btn btn-primary btn-sm" ng-click="project.down = project.down + 1">Down: {{ project.down }}</button>
-						<p ng-click="deleteProject(project._id)" id="del">delete</p>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="addVote(project._id, 'up')">Up: {{ project.up }}</button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="addVote(project._id, 'down')">Down: {{ project.down }}</button>
+						<br>
 					</div>
 				</li>
 			</ul>
