@@ -57,11 +57,12 @@ function mainController($scope, $http, $window, $document) {
 			});
 	};
 	
-	$scope.addComment = function(comment) {
-		$http.post('/api/comment/' + comment, $scope.formData)
+	$scope.addComment = function(id) {
+
+		$http.post('/api/comment/' + id, $scope.formData)
 			.success(function(data) {
 				$('input').val('');
-				$scope.user = data;
+				$scope.project = data;
 				
 			})
 			.error(function(data) {

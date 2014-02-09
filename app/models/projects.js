@@ -8,7 +8,7 @@ var projectSchema = new Schema({
   body:   String,
   url: String,
   category: String,
-  comments: [{ body: String, date: Date }],
+  comments: [String],
   date: { type: Date, default: Date.now },
   hidden: Boolean,
   up: Number,

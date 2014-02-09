@@ -187,23 +187,27 @@ module.exports = function(app) {
 		});
 	});
 	
-	app.post('/api/projects/comment/:comment_str', function(req, res) {
+	app.post('/api/comment/:project_id', function(req, res) {
 	
-		Project.findOne({ _id	: req.body.project_id }, function (err, project) {
+		var id = (req.params.project_id);
+		Project.findOne({ _id	: req.params.project_id }, function (err, project) {
 			if (err) return handleError(err);
-			if (user == null) {
+			if (project == null) {
 				res.json(project);
 				//res.send("username taken");
 				return;
 			}
 			
-			project.comments.push("req.params.comment_str");
+			var comments = project.comments;
+			comments.push(req.body.comment);
 			
-			Project.update({ _id : req.body.project_id }, { 'comments' : project.comments }, { multi: true }, 
+			Project.update({ _id : req.params.project_id }, { 'comments' : comments }, { multi: true }, 
 				function (err, numberAffected, raw) {
 					if (err) return handleError(err);
 					console.log('The number of updated documents was %d', numberAffected);
 					console.log('The raw response from Mongo was ', raw);
+					console.log(project.comments[0]);
+					res.json(project);
 			});
 		});
 	});
