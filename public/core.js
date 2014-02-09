@@ -29,7 +29,7 @@ function mainController($scope, $http, $window, $document) {
 		$http.post('/api/projects', $scope.formData)
 			.success(function(data) {
 				$('input').val('');
-				$scope.proj = data;
+				$scope.projects = data;
 				
 				$http.post('/api/users/project/' + $scope.proj._id, $scope.user)
 			.success(function(data) {
