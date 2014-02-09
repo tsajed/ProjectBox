@@ -2,6 +2,7 @@ var projectBox = angular.module('projectBox', []);
 
 function mainController($scope, $http) {
 	$scope.formData = {};
+	$scope.upvotes = {};
 
 	// when landing on the page, get all projects and show them
 	$http.get('/api/projects')
