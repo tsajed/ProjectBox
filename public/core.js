@@ -32,7 +32,7 @@ function mainController($scope, $http, $window, $document) {
 				$scope.projects = data;
 				
 				$http.post('/api/users/project/' + $scope.proj._id, $scope.user)
-			.success(function(data) {
+			success(function(data) {
 				$('input').val('');
 				$scope.user = data;
 				
