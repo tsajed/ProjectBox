@@ -25,7 +25,7 @@ module.exports = function(app) {
 		Project.create({
 			title   : req.body.text,
 			author : "Jason gillespie",
-			body : "this is a new project",
+			body : req.body.descr,
 			comments : [],
 			hidden : false,
 			meta : { votes : 0, favs : 0}
