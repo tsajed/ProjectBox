@@ -77,15 +77,23 @@ module.exports = function(app) {
 					res.send(err);
 				}
 
+
+
 				// get and return user object 
 				User.findOne({ 'username' : req.body.text }, function (err, user) {
 					if (err) return handleError(err);
 					console.log(user.title);
 					console.log(req.body.descr);
 					res.json(user);
+
 				});
+
+
 			});
+
 		});
+
+		//res.redirect('http://localhost:8080');
 
 	});
 
