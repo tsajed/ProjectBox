@@ -53,10 +53,10 @@ module.exports = function(app) {
 			
 		
 
-	// create todo and send back all projects after creation
+	// create project and send back all projects after creation
 	app.post('/api/projects', function(req, res) {
 
-		// create a todo, information comes from AJAX request from Angular
+		// create a project, information comes from AJAX request from Angular
 		Project.create({
 			title   : req.body.text,
 			author : "Jason gillespie",
@@ -97,8 +97,7 @@ module.exports = function(app) {
 				return;
 			}
 			
-		
-		// create a todo, information comes from AJAX request from Angular
+		// create a project, information comes from AJAX request from Angular
 			user = {
 				title   : "student2343",
 				username : req.body.text,
@@ -108,9 +107,11 @@ module.exports = function(app) {
 				projects : [],
 				hidden : false,
 				meta : { avvotes : 0, favs : 0}
-			}
+
+			};
 			
-			User.create(user , function(err, todo) {
+			User.create(user , function(err, project) {
+
 				if (err) {
 					res.send(err);
 				} 
@@ -145,28 +146,44 @@ module.exports = function(app) {
 		});
 	});
 	
-	app.post('/api/projects/vote/:vote_num', function(req, res) {
+	app.post('/api/projects/vote/:project_id', function(req, res) {
 	
-		Project.findOne({ _id : req.body.project_id }, function (err, user) {
+		
+		Project.findOne({ _id : req.params.project_id }, function (err, project) {
 			if (err) return handleError(err);
-			if (user == null) {
-				res.json(user);
+			if (project == null) {
+				res.json(project);
 				//res.send("username taken");
 				return;
 			}
+
+			var num = 0;
 			
-			var votes = project.votes + req.params.vote_num;
-			var number = project.number + 1;
-			user.votes = votes;
+			if(req.body.type == 'up') {
+				num = project.up + 1;
 			
-			Project.update({ _id : req.body.project_id }, { 'votes' : votes }, { multi: true }, 
-				function (err, numberAffected, raw) {
-					if (err) return handleError(err);
-					console.log('The number of updated documents was %d', numberAffected);
-					console.log('The raw response from Mongo was ', raw);
-					
-					res.json(user);
-			});
+				Project.update({ _id : req.params.project_id }, { 'up' : num }, { multi: true }, 
+					function (err, numberAffected, raw) {
+						if (err) return handleError(err);
+						console.log('The number of updated documents was %d', numberAffected);
+						console.log('The raw response from Mongo was ', raw);
+						
+						res.json(project);
+				});
+			}
+			else {
+			
+				num = project.down + 1;
+			
+				Project.update({ _id : req.params.project_id }, { 'down' : num }, { multi: true }, 
+					function (err, numberAffected, raw) {
+						if (err) return handleError(err);
+						console.log('The number of updated documents was %d', numberAffected);
+						console.log('The raw response from Mongo was ', raw);
+						
+						res.json(project);
+				});
+			}
 		});
 	});
 	
@@ -222,7 +239,7 @@ module.exports = function(app) {
 				res.send(err);
 			}
 
-			// get and return all the projects after you create another
+			// get and return all the projects after you delete another
 			Project.find(function(err, projects) {
 				if (err)
 					res.send(err)
@@ -240,7 +257,6 @@ module.exports = function(app) {
 				res.send(err);
 			}
 
-			// get and return all the projects after you create another
 			User.find(function(err, user) {
 				if (err)
 					res.send(err)
@@ -251,6 +267,11 @@ module.exports = function(app) {
 
 	// application -------------------------------------------------------------
 	app.get('*', function(req, res) {
-		res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+		res.sendfile('./public/index.html'); // load the single view file
+	});
+	
+	app.get('/login/:username', function(req, res) {
+		res.redirect('profile.html');
+		res.json({ username : req.params.username});
 	});
 };

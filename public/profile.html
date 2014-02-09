@@ -40,8 +40,6 @@
 		</div>
 
 
-
-		<!--
 		<div id="project-form" class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
 				<form>
@@ -60,9 +58,8 @@
 				</form>
 			</div>
 		</div>
-		-->
 
-	<div id="signup-form" class="row">
+	<!--div id="signup-form" class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
 				<form>
 					<div class="form-group">
@@ -75,7 +72,7 @@
 					<button type="submit" class="btn btn-primary btn-lg" ng-click="createUser()">Sign Up</button>
 				</form>
 			</div>
-		</div>
+		</div-->
 
 		<div id="project-list">
 			<h2 class="text-center">Projects</h2>
@@ -87,8 +84,13 @@
 						<p>{{ project.body }}</p>
 						<p>{{ project.category }}</p>
 						<br>
-						<button type="button" class="btn btn-primary btn-sm" ng-click="project.up = project.up + 1">Up: {{ project.up }}</button>
-						<button type="button" class="btn btn-primary btn-sm" ng-click="project.down = project.down + 1">Down: {{ project.down }}</button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="addVote(project._id, 'up')">Up: {{ project.up }}</button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="addVote(project._id, 'down')">Down: {{ project.down }}</button>
+						<br>
+						<input type="text" class="form-control input-lg text-left" placeholder="Create Comment" ng-model="formData.text">
+						<br>
+						<button type="submit" class="btn btn-primary btn-lg" ng-click="addComment()">Submit</button>
+						<br>
 						<p ng-click="deleteProject(project._id)" id="del">delete</p>
 					</div>
 				</li>

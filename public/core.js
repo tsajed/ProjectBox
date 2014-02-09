@@ -1,6 +1,6 @@
 var projectBox = angular.module('projectBox', []);
 
-function mainController($scope, $http, $window) {
+function mainController($scope, $http, $window, $document) {
 	$scope.formData = {};
 	$scope.userData = {};
 	$scope.userParams = {};
@@ -18,7 +18,7 @@ function mainController($scope, $http, $window) {
 	$http.get('/api/users', $scope.userData)
 		.success(function(data) {
 			$scope.user = data;
-			$window.alert($scope.user.username);
+			//$window.alert($scope.user.username);
 		})
 		.error(function(data) {
 			console.log('Error: ' + data);
@@ -63,14 +63,6 @@ function mainController($scope, $http, $window) {
 				$('input').val('');
 				$scope.user = data;
 				
-				if($scope.user == null) {
-				//$window.location.href = 'index.html';
-					$window.alert('username taken');
-				}
-				else {
-					//$window.location.href = "index.html";
-					$window.alert('username new');
-				}
 			})
 			.error(function(data) {
 				console.log('Error: ' + data);
@@ -78,20 +70,13 @@ function mainController($scope, $http, $window) {
 			
 	};
 	
-	$scope.addVote = function(vote) {
-		$http.post('/api/users/vote/' + vote, $scope.formData)
+	$scope.addVote = function(id, type) {
+		
+		$scope.formData.type = type;
+		
+		$http.post('/api/projects/vote/' + id, $scope.formData)
 			.success(function(data) {
-				$('input').val('');
-				$scope.user = data;
-				
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-			
-		$http.post('/api/projects/vote/' + vote, $scope.formData)
-			.success(function(data) {
-				$('input').val('');
+				//$('input').val('');
 				$scope.project = data;
 				
 			})
@@ -100,6 +85,7 @@ function mainController($scope, $http, $window) {
 			});
 			
 	};
+
 	
 
 	// create a user
@@ -110,13 +96,14 @@ function mainController($scope, $http, $window) {
 				$('input').val('');
 				$scope.user = data;
 				
+				$window.location.href = "profile.html";
 				if($scope.user == null) {
 				//$window.location.href = 'index.html';
-					$window.alert('username taken');
+					//$window.alert('username taken');
 				}
 				else {
 					//$window.location.href = "index.html";
-					$window.alert('username new');
+					//$window.alert('username new');
 				}
 			})
 			.error(function(data) {
@@ -125,7 +112,7 @@ function mainController($scope, $http, $window) {
 			
 	};
 
-	// delete a todo after checking it
+	// delete a project after clicking delete
 	$scope.deleteProject = function(id) {
 		$http.delete('/api/projects/' + id)
 			.success(function(data) {
@@ -145,4 +132,5 @@ function mainController($scope, $http, $window) {
 				console.log('Error: ' + data);
 			});
 	};
+	
 }

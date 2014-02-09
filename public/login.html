@@ -10,12 +10,17 @@
 
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<style>
-		html 					{ overflow-y:scroll; }
-		body 					{ padding-top:50px; }
-		#todo-list 				{ margin-bottom:30px; }
-		#todo-form 	 			{ margin-bottom:50px; }
-		#logo			{ text-decoration: none; color: #333333; }
-		.jumbotron	 	{ background-color: #81e3fb; }
+		html 			{ overflow-y:scroll; }
+		body 			{ padding-top:50px; }
+		li 				{ display: inline; float: left; }
+		h2 				{ margin-bottom: 20px; }
+		#project-list 	{ margin-bottom:30px; margin-left: auto; margin-right: auto; }
+		#project-form 	{ margin-bottom:50px; }
+		#projectThumb 	{ height: 200px; width: 200px; }
+		#logo			{ text-decoration: none; color: #FFFFFF; }
+		#del 			{ color: #bf0000; }
+		#log 			{ color: #FFFFFF; }
+		.jumbotron	 	{ background-color: #428bca; }
 		.label 			{ background-color: #FFFFFF; color: #000000; }
 	</style>
 
@@ -41,31 +46,17 @@
 			<p>by TeamName</p>
 		</div>
 
-		<!--div id="todo-list" class="row">
-			<div class="col-sm-4 col-sm-offset-4">
-
-				<div class="checkbox" ng-repeat="project in projects">
-					<label>
-						<input type="checkbox" ng-click="deleteProject(project._id)"> {{ project.title }}
-					</label>
-				</div>
-
-			</div>
-		</div-->
-
 		<div id="project-form" class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
 				<form>
 					<div class="form-group">
-
-						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
 
 						<input type="text" class="form-control input-lg text-center" placeholder="Enter your username" ng-model="userData.text">
 						<br>
 						<input type="password" class="form-control input-lg text-center" placeholder="Enter your password" ng-model="userData.descr">
 					</div>
 
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="createUser()">Sign Up</button>
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createUser()">Login</button>
 				</form>
 			</div>
 		</div>
