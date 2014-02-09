@@ -81,7 +81,7 @@
 			<h2 class="text-center">Projects</h2>
 
 			<ul>
-				<li ng-repeat="project in projects">
+				<li ng-repeat="project in projects | orderBy:'up-down':-1">
 					<div id="projectThumb">
 						<p><a href='{{ project.url }}' target="_blank">{{ project.title }}</a></p> 
 						<p>{{ project.body }}</p>
