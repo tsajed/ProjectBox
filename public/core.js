@@ -29,6 +29,7 @@ function mainController($scope, $http, $window, $document) {
 		$http.post('/api/projects', $scope.formData)
 			.success(function(data) {
 				$('input').val('');
+/*<<<<<<< HEAD
 				$scope.projects = data;
 				
 				$http.post('/api/users/project/' + $scope.proj._id, $scope.user)
@@ -39,18 +40,10 @@ function mainController($scope, $http, $window, $document) {
 				$http.post('/api/projects/user/' + $scope.user.username, $scope.formData)
 			.success(function(data) {
 				$('input').val('');
+=======
+>>>>>>> 92421068e342a547c5b9ee69b14474792c455099*/
 				$scope.projects = data;
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-			
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-			
-			
+						
 			})
 			.error(function(data) {
 				console.log('Error: ' + data);
