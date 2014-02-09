@@ -52,7 +52,7 @@ module.exports = function(app) {
 		User.findOne({ 'username' : req.body.text }, function (err, user) {
 			if (err) return handleError(err);
 			if (user != null) {
-				user = {invalid : 0};
+				user = null;
 				res.json(user);
 				return 0;
 			}

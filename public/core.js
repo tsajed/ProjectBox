@@ -1,6 +1,6 @@
 var projectBox = angular.module('projectBox', []);
 
-function mainController($scope, $http) {
+function mainController($scope, $http, $window) {
 	$scope.formData = {};
 	$scope.userData = {};
 
@@ -39,9 +39,16 @@ function mainController($scope, $http) {
 				console.log('Error: ' + data);
 			});
 			
-			if($scope.user.invalid == 0) { 
-				$scope.user.username = "already exists";
-			}
+		//$window.alert("sfsd");
+		//$window.location.href = "index.html";
+		//console.log("dfs");
+		if(typeof $scope.user === 'undefined') {
+			//$window.location.href = "index.html";
+			$window.alert("Username already taken");
+		}
+		else {
+			$window.location.href = "index.html";
+		}
 	};
 
 	// delete a todo after checking it
@@ -64,5 +71,4 @@ function mainController($scope, $http) {
 				console.log('Error: ' + data);
 			});
 	};
-
 }
