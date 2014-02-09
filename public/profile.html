@@ -1,0 +1,105 @@
+<!doctype html>
+
+<html ng-app="projectBox">
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="../favicon.png">
+
+	<title>ProjectBox</title>
+
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	<style>
+		html 			{ overflow-y:scroll; }
+		body 			{ padding-top:50px; }
+		li 				{ display: inline; float: left; }
+		h2 				{ margin-bottom: 20px; }
+		#project-list 	{ margin-bottom:30px; margin-left: auto; margin-right: auto; }
+		#project-form 	{ margin-bottom:50px; }
+		#projectThumb 	{ height: 200px; width: 200px; }
+		#logo			{ text-decoration: none; color: #FFFFFF; }
+		#del 			{ color: #bf0000; }
+		#log 			{ color: #FFFFFF; }
+		.jumbotron	 	{ background-color: #428bca; }
+		.label 			{ background-color: #FFFFFF; color: #000000; }
+	</style>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+	<script src="core.js"></script>
+
+</head>
+
+<body ng-controller="mainController">
+	<div class="container">
+
+		<div class="jumbotron text-center">
+			<h1><a id="logo" href="/">ProjectBox</a></h1>
+			<p>by TeamName</p>
+		</div>
+
+
+		<div id="project-form" class="row">
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<form>
+					<div class="form-group">
+						<input type="text" class="form-control input-lg text-left" placeholder="Project Title" ng-model="formData.text">
+						<br>
+						<input type="text" class="form-control input-lg text-left" placeholder="Description" ng-model="formData.descr">
+						<br>
+						<input type="text" class="form-control input-lg text-left" placeholder="URL" ng-model="formData.url">
+						<br>
+						<input type="text" class="form-control input-lg text-left" placeholder="Category (code, image, video)" ng-model="formData.category">
+					</div>
+
+
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createProject()">Add Project</button>
+				</form>
+			</div>
+		</div>
+
+	<!--div id="signup-form" class="row">
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<form>
+					<div class="form-group">
+
+						<input type="text" class="form-control input-lg text-center" placeholder="Enter your username" ng-model="userData.text">
+						<br>
+						<input type="password" class="form-control input-lg text-center" placeholder="Enter your password" ng-model="userData.descr">
+					</div>
+
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createUser()">Sign Up</button>
+				</form>
+			</div>
+		</div-->
+
+		<div id="project-list">
+			<h2 class="text-center">Projects</h2>
+
+			<ul>
+				<li ng-repeat="project in projects">
+					<div id="projectThumb">
+						<p><a href='{{ project.url }}' target="_blank">{{ project.title }}</a></p> 
+						<p>{{ project.body }}</p>
+						<p>{{ project.category }}</p>
+						<br>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="addVote(project._id, 'up')">Up: {{ project.up }}</button>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="addVote(project._id, 'down')">Down: {{ project.down }}</button>
+						<br>
+						<input type="text" class="form-control input-lg text-left" placeholder="Create Comment" ng-model="formData.text">
+						<br>
+						<button type="submit" class="btn btn-primary btn-lg" ng-click="addComment()">Submit</button>
+						<br>
+						<p ng-click="deleteProject(project._id)" id="del">delete</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+		
+
+	</div>
+
+</body>
+</html>

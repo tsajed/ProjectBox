@@ -1,9 +1,9 @@
 var projectBox = angular.module('projectBox', []);
 
-function mainController($scope, $http, $window) {
+function mainController($scope, $http, $window, $document) {
 	$scope.formData = {};
 	$scope.userData = {};
-
+	$scope.userParams = {};
 
 
 	// when landing on the page, get all projects and show them
@@ -15,9 +15,28 @@ function mainController($scope, $http, $window) {
 			console.log('Error: ' + data);
 		});
 		
+	$http.get('/api/users', $scope.userData)
+		.success(function(data) {
+			$scope.user = data;
+			//$window.alert($scope.user.username);
+		})
+		.error(function(data) {
+			console.log('Error: ' + data);
+		});
+		
 	// when submitting the add form, send the text to the node API
 	$scope.createProject = function() {
 		$http.post('/api/projects', $scope.formData)
+			.success(function(data) {
+				$('input').val('');
+				$scope.proj = data;
+				
+				$http.post('/api/users/project/' + $scope.proj._id, $scope.user)
+			.success(function(data) {
+				$('input').val('');
+				$scope.user = data;
+				
+				$http.post('/api/projects/user/' + $scope.user.username, $scope.formData)
 			.success(function(data) {
 				$('input').val('');
 				$scope.projects = data;
@@ -25,13 +44,21 @@ function mainController($scope, $http, $window) {
 			.error(function(data) {
 				console.log('Error: ' + data);
 			});
+			
+			})
+			.error(function(data) {
+				console.log('Error: ' + data);
+			});
+			
+			
+			})
+			.error(function(data) {
+				console.log('Error: ' + data);
+			});
 	};
-
 	
-	// create a user
-	
-	$scope.createUser = function() {
-		$http.post('/api/users', $scope.userData)
+	$scope.addComment = function(comment) {
+		$http.post('/api/comment/' + comment, $scope.formData)
 			.success(function(data) {
 				$('input').val('');
 				$scope.user = data;
@@ -41,16 +68,48 @@ function mainController($scope, $http, $window) {
 				console.log('Error: ' + data);
 			});
 			
-		//$window.alert("sfsd");
-		//$window.location.href = "index.html";
-		//console.log("dfs");
-		//if(typeof $scope.user === 'undefined') {
-			//$window.location.href = "index.html";
-		//	$window.alert("Username already taken");
-		//}
-		//else {
-			$window.location.href = "login.html";
-		//}
+	};
+	
+	$scope.addVote = function(id, type) {
+		
+		$scope.formData.type = type;
+		
+		$http.post('/api/projects/vote/' + id, $scope.formData)
+			.success(function(data) {
+				//$('input').val('');
+				$scope.project = data;
+				
+			})
+			.error(function(data) {
+				console.log('Error: ' + data);
+			});
+			
+	};
+
+	
+
+	// create a user
+	
+	$scope.createUser = function() {
+		$http.post('/api/users', $scope.userData)
+			.success(function(data) {
+				$('input').val('');
+				$scope.user = data;
+				
+				$window.location.href = "profile.html";
+				if($scope.user == null) {
+				//$window.location.href = 'index.html';
+					//$window.alert('username taken');
+				}
+				else {
+					//$window.location.href = "index.html";
+					//$window.alert('username new');
+				}
+			})
+			.error(function(data) {
+				console.log('Error: ' + data);
+			});
+			
 	};
 
 	// delete a project after clicking delete
@@ -73,4 +132,5 @@ function mainController($scope, $http, $window) {
 				console.log('Error: ' + data);
 			});
 	};
+	
 }

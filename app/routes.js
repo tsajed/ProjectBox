@@ -17,6 +17,41 @@ module.exports = function(app) {
 			res.json(projects); // return all projects in JSON format
 		});
 	});
+	
+	app.get('/api/projects/user/:name', function(req, res) {
+
+	
+		// use mongoose to get all projects in the database
+		Project.find({ 'author' : req.params.name} , function(err, projects) {
+
+			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+			if (err)
+				res.send(err)
+
+			res.json(projects); // return all projects in JSON format
+		});
+	});
+	
+	app.get('/api/users', function(req, res) {
+	
+		User.findOne({ 'username' : req.body.text,
+						'password' : req.body.descr }, function (err, user) {
+						
+			if (err) return handleError(err);
+			if (user == null) {
+
+				res.json(user);
+				return;
+			}
+			console.log(req.body.username);
+			console.log(req.body.password);
+			res.json(user);
+		});
+	});
+			
+				
+			
+		
 
 	// create project and send back all projects after creation
 	app.post('/api/projects', function(req, res) {
@@ -39,7 +74,7 @@ module.exports = function(app) {
 			}
 
 			// get and return all the projects after you create another
-			Project.find(function(err, project) {
+			Project.findOne({ _id : project._id}, function(err, project) {
 				if (err) {
 					res.send(err)
 				}
@@ -58,12 +93,12 @@ module.exports = function(app) {
 			if (user != null) {
 				user = null;
 				res.json(user);
-				return 0;
+				//res.send("username taken");
+				return;
 			}
 			
-		
 		// create a project, information comes from AJAX request from Angular
-			User.create({
+			user = {
 				title   : "student2343",
 				username : req.body.text,
 				password : req.body.descr,
@@ -72,29 +107,127 @@ module.exports = function(app) {
 				projects : [],
 				hidden : false,
 				meta : { avvotes : 0, favs : 0}
-			}, function(err, project) {
+
+			};
+			
+			User.create(user , function(err, project) {
+
 				if (err) {
 					res.send(err);
-				}
-
-
-
-				// get and return user object 
-				User.findOne({ 'username' : req.body.text }, function (err, user) {
-					if (err) return handleError(err);
-					console.log(user.title);
-					console.log(req.body.descr);
-					res.json(user);
-
-				});
-
-
+				} 
+				
+				res.json(user);
+				console.log(user.username);
 			});
-
+						
 		});
 
-		//res.redirect('http://localhost:8080');
+	});
+	
+	app.post('/api/users/vote/:vote_num', function(req, res) {
+	
+		User.findOne({ 'username' : req.body.text }, function (err, user) {
+			if (err) return handleError(err);
+			if (user == null) {
+				res.json(user);
+				//res.send("username taken");
+				return;
+			}
+			
+			var votes = user.avvotes + req.params.vote_num;
+			var number = user.number + 1;
+			
+			User.update({ 'username' : req.body.text }, { 'avvotes' : votes }, { multi: true }, 
+				function (err, numberAffected, raw) {
+					if (err) return handleError(err);
+					console.log('The number of updated documents was %d', numberAffected);
+					console.log('The raw response from Mongo was ', raw);
+			});
+		});
+	});
+	
+	app.post('/api/projects/vote/:project_id', function(req, res) {
+	
+		
+		Project.findOne({ _id : req.params.project_id }, function (err, project) {
+			if (err) return handleError(err);
+			if (project == null) {
+				res.json(project);
+				//res.send("username taken");
+				return;
+			}
 
+			var num = 0;
+			
+			if(req.body.type == 'up') {
+				num = project.up + 1;
+			
+				Project.update({ _id : req.params.project_id }, { 'up' : num }, { multi: true }, 
+					function (err, numberAffected, raw) {
+						if (err) return handleError(err);
+						console.log('The number of updated documents was %d', numberAffected);
+						console.log('The raw response from Mongo was ', raw);
+						
+						res.json(project);
+				});
+			}
+			else {
+			
+				num = project.down + 1;
+			
+				Project.update({ _id : req.params.project_id }, { 'down' : num }, { multi: true }, 
+					function (err, numberAffected, raw) {
+						if (err) return handleError(err);
+						console.log('The number of updated documents was %d', numberAffected);
+						console.log('The raw response from Mongo was ', raw);
+						
+						res.json(project);
+				});
+			}
+		});
+	});
+	
+	app.post('/api/projects/comment/:comment_str', function(req, res) {
+	
+		Project.findOne({ _id	: req.body.project_id }, function (err, project) {
+			if (err) return handleError(err);
+			if (user == null) {
+				res.json(project);
+				//res.send("username taken");
+				return;
+			}
+			
+			project.comments.push("req.params.comment_str");
+			
+			Project.update({ _id : req.body.project_id }, { 'comments' : project.comments }, { multi: true }, 
+				function (err, numberAffected, raw) {
+					if (err) return handleError(err);
+					console.log('The number of updated documents was %d', numberAffected);
+					console.log('The raw response from Mongo was ', raw);
+			});
+		});
+	});
+	
+	app.post('/api/users/project/:project_id', function(req, res) {
+	
+		User.findOne({ 'username' : req.body.username }, function (err, user) {
+			if (err) return handleError(err);
+			if (user == null) {
+				res.json(user);
+				//res.send("username taken");
+				return;
+			}
+			
+			user.projects.push(req.params.project_id);
+			
+			User.update({ 'username' : req.body.username }, { 'projects' : user.projects }, { multi: true }, 
+				function (err, numberAffected, raw) {
+					if (err) return handleError(err);
+					console.log('The number of updated documents was %d', numberAffected);
+					console.log('The raw response from Mongo was ', raw);
+					res.json(user);
+			});
+		});
 	});
 
 	// delete a project
@@ -135,5 +268,10 @@ module.exports = function(app) {
 	// application -------------------------------------------------------------
 	app.get('*', function(req, res) {
 		res.sendfile('./public/index.html'); // load the single view file
+	});
+	
+	app.get('/login/:username', function(req, res) {
+		res.redirect('profile.html');
+		res.json({ username : req.params.username});
 	});
 };
