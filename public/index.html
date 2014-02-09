@@ -18,6 +18,7 @@
 		#project-form 	{ margin-bottom:50px; }
 		#projectThumb 	{ height: 200px; width: 200px; }
 		#logo			{ text-decoration: none; color: #333333; }
+		#del 			{ color: #bf0000; }
 		.jumbotron	 	{ background-color: #81e3fb; }
 		.label 			{ background-color: #FFFFFF; color: #000000; }
 	</style>
@@ -37,8 +38,8 @@
 			<h1><a id="logo" href="/">ProjectBox</a></h1>
 			<p>by TeamName</p>
 			<div class="text-center text-muted">
-				<a href="login.html">Login  </a>
-				<a href="signup.html">  Sign Up</a>
+				<a href="login.html">Login</a>
+				<a href="signup.html">Sign Up</a>
 			</div>
 		</div>
 
@@ -86,6 +87,7 @@
 						<br>
 						<button type="button" ng-click="project.up = project.up + 1">Up: {{ project.up }}</button>
 						<button type="button" ng-click="project.down = project.down + 1">Down: {{ project.down }}</button>
+						<p ng-click="deleteProject(project._id)" id="del">delete</p>
 					</div>
 				</li>
 			</ul>
