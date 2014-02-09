@@ -26,6 +26,7 @@ function mainController($scope, $http, $window) {
 				console.log('Error: ' + data);
 			});
 	};
+
 	
 	// create a user
 	
